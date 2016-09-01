@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 var Sequelize = require('sequelize');
-var db = require('./_db');
+var db = require('../db');
 var Place = require('./place');
 
 var Activity = db.define('activity', {

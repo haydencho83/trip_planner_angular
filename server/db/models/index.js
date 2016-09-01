@@ -1,4 +1,4 @@
-var db = require('./_db');
+var db = require('../db');
 
 var Place = require('./place');
 var Hotel = require('./hotel');

@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var db = require('./_db');
+var db = require('../db');
 
 var Day = db.define('day', {
     number: {

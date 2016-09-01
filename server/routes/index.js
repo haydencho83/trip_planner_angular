@@ -5,8 +5,14 @@ const router = require('express').Router();
 module.exports = router;
 
 
-//NEED TO CHANGE//
 
+
+router.use('/hotel', require('./hotel'));
+// router.use('/restaurant', require('./restaurant'));
+// router.use('/activity', require('./activity'));
+// router.use('/days', require('./days')); NOT YET
+
+//NEED TO CHANGE//
 // router.use('/artists', require('./artists'));
 // router.use('/albums', require('./albums'));
 // router.use('/playlists', require('./playlists'));
