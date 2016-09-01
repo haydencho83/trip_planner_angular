@@ -3,7 +3,7 @@
 const express = require('express');
 const mime = require('mime');
 const router = express.Router();
-const Hotel = require('../db/models/hotel.js');
+const Activity = require('../db/models/activity.js');
 
 
 module.exports = router;
@@ -11,10 +11,11 @@ module.exports = router;
 
 router.get('/', function(req, res, next){
 
-	Hotel.findAll({})
-		.then(function(hotels){
-			res.status(200).json(hotels);
+	Activity.findAll({})
+		.then(function(activities){
+			res.status(200).json(activities);
 		})
+		
 		.catch(next);
 
   // Hotel.scope('defaultScope', 'hotelIds').findAll({where: req.query})

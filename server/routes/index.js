@@ -8,8 +8,8 @@ module.exports = router;
 
 
 router.use('/hotel', require('./hotel'));
-// router.use('/restaurant', require('./restaurant'));
-// router.use('/activity', require('./activity'));
+router.use('/restaurant', require('./restaurant'));
+router.use('/activity', require('./activity'));
 // router.use('/days', require('./days')); NOT YET
 
 //NEED TO CHANGE//
