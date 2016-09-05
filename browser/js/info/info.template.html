@@ -1,0 +1,11 @@
+<div id="info-tab">
+	<h1>Information</h1>
+
+	<div ng-show="attraction()">
+	<h6>place ID: {{attraction().place_id}}</h6>
+	<h4>Name: {{attraction().description}}</h4>
+	<h4>Types: {{attraction().types}}</h4>
+	</div>
+
+	<button class="btn-btn-success" ng-click="createNewItinerary()">Add</button>
+</div>

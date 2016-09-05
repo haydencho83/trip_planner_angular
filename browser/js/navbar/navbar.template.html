@@ -1,0 +1,12 @@
+<div id="querySearchForm">
+  <form class="form-horizontal" name="queryForm" ng-submit="assignToAttraction(querySearch)" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <div class="col-xs-7">
+          <input type="text" ng-model="querySearch" uib-typeahead="prediction as prediction.description for prediction in queriedResults($viewValue)" class="form-control querySearch" />
+          <!-- <input type="submit" class="btn btn-primary" /> -->
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

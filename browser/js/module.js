@@ -1,3 +1,3 @@
 'use strict';
 
-var tp = angular.module('TripPlanner', ['ui.router', 'ngMessages']);
+var tp = angular.module('TripPlanner', ['ui.router', 'ngMessages', 'ui.bootstrap']);

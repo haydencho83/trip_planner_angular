@@ -5,70 +5,47 @@
     <link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="/stylesheets/style.css" rel="stylesheet" />
 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4t94ot_e6LmbxENxBas8CA1M7pMbFR0k&libraries=places"></script>
+
     <script src="/angular/angular.js" defer></script>
     <script src="/angular-ui-router/release/angular-ui-router.js" defer></script>
+    <script src="/angular-ui-bootstrap/dist/ui-bootstrap.js" defer></script>
+    <script src="/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js" defer></script>
     <script src="/angular-messages/angular-messages.js" defer></script>
     
     <script src="/js/module.js" defer></script>
-    <script src="/js/sidebar/sidebar.controller.js" defer></script>
+    <script src="/js/navbar/navbar.controller.js" defer></script>
+    <script src="/js/navbar/navbar.directive.js" defer></script>
+    <script src="/js/map/map.factory.js" defer></script>
+    <script src="/js/map/map.controller.js" defer></script>
+    <script src="/js/info/info.directive.js" defer></script>
+    <script src="/js/info/info.controller.js" defer></script>
+    <script src="/js/myit/myit.directive.js" defer></script>
+    <script src="/js/myit/myit.factory.js" defer></script>
+    <script src="/js/myit/myit.controller.js" defer></script>
+    
+    
 
   </head>
   <body ng-app="TripPlanner">
-
-  <div class="col-xs-2" ng-controller="SidebarCtrl">
-    <form class="form-horizontal" novalidate name="itineraryForm" ng-submit="addItinerary()">
-      <fieldset>
-        <legend>Add to Itinery</legend>
-
-        <div class="form-group">
-          <label for="hotel" class="col-xs-2 control-label">Hotel</label>
-          <div class="col-xs-10">
-            <select class="form-control" name="song" ng-options="hotel as hotel.name for hotel in hotels" ng-model="hotelToAdd" required></select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="restaurant" class="col-xs-2 control-label">Restaurant</label>
-          <div class="col-xs-10">
-            <select class="form-control" name="song" ng-options="restaurant as restaurant.name for restaurant in restaurants" ng-model="restaurantToAdd" ></select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="activity" class="col-xs-2 control-label">Activity</label>
-          <div class="col-xs-10">
-            <select class="form-control" name="song" ng-options="activity as activity.name for activity in activities" ng-model="activityToAdd" ></select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-xs-10 col-xs-offset-2">
-            <button type="submit" class="btn btn-success" ng-disabled="itineraryForm.$invalid">Add to my Itinerary</button>
-          </div>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-
-  <!-- <div ng-controller="tp-controller">
-    <h1>{{title}}</h1>
-  </div> -->
-<!--     <div id="main" class="container-fluid">
-
-      <div class="col-xs-2">
-        <sidebar></sidebar>
+    <div class="col-xs-6">
+      <div ng-controller="MapCtrl">
+        <div class="map-container" id="map-canvas"></div>
       </div>
 
-      <div class="col-xs-10">
-        <ui-view></ui-view>
+      <div ng-controller="NavbarCtrl">
+        <nav-bar></nav-bar>
       </div>
-
-      <footer>
-        <player></player>
-      </footer>
-
     </div>
- -->  
+    <div class="col-xs-6">
+      <div ng-controller="InfoCtrl">
+        <info-window></info-window>
+      </div>
+      <div ng-controller="ItinCtrl">
+        <my-itinerary></my-itinerary>
+      </div>
+    </div>  
+
 
   </body>
 </html>
