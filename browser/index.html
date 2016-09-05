@@ -5,7 +5,7 @@
     <link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="/stylesheets/style.css" rel="stylesheet" />
 
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4t94ot_e6LmbxENxBas8CA1M7pMbFR0k&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4t94ot_e6LmbxENxBas8CA1M7pMbFR0k&libraries=places" ></script>
 
     <script src="/angular/angular.js" defer></script>
     <script src="/angular-ui-router/release/angular-ui-router.js" defer></script>
@@ -14,38 +14,31 @@
     <script src="/angular-messages/angular-messages.js" defer></script>
     
     <script src="/js/module.js" defer></script>
-    <script src="/js/navbar/navbar.controller.js" defer></script>
     <script src="/js/navbar/navbar.directive.js" defer></script>
-    <script src="/js/map/map.factory.js" defer></script>
-    <script src="/js/map/map.controller.js" defer></script>
-    <script src="/js/info/info.directive.js" defer></script>
-    <script src="/js/info/info.controller.js" defer></script>
-    <script src="/js/myit/myit.directive.js" defer></script>
-    <script src="/js/myit/myit.factory.js" defer></script>
-    <script src="/js/myit/myit.controller.js" defer></script>
+    <script src="/js/navbar/navbar.controller.js" defer></script>
+    
+    <script src="/js/placedetail/placedetail.directive.js" defer></script>
+    <script src="/js/placedetail/placedetail.controller.js" defer></script>
+    
+    <script src="/js/itinerary/itinerary.directive.js" defer></script>
+    <script src="/js/itinerary/itinerary.controller.js" defer></script>
+    
     
     
 
   </head>
   <body ng-app="TripPlanner">
     <div class="col-xs-6">
-      <div ng-controller="MapCtrl">
-        <div class="map-container" id="map-canvas"></div>
-      </div>
-
       <div ng-controller="NavbarCtrl">
         <nav-bar></nav-bar>
       </div>
+      
+      <div class="map-container" id="map-canvas"></div>
     </div>
+    
     <div class="col-xs-6">
-      <div ng-controller="InfoCtrl">
-        <info-window></info-window>
-      </div>
-      <div ng-controller="ItinCtrl">
-        <my-itinerary></my-itinerary>
-      </div>
-    </div>  
-
-
+      <place-detail></place-detail>
+      <itinerary-tab></itinerary-tab>
+    </div>
   </body>
 </html>

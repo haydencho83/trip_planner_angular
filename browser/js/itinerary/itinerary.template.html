@@ -1,0 +1,17 @@
+<h1>Itinerary</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Category</td>
+			<td>address</td>
+		</tr>
+	</thead>
+	<tbody ng-show="itineraryList.length">
+		<tr ng-repeat="itineraryItem in itineraryList">
+			<td>{{itineraryItem.name}}</td>
+			<td>{{itineraryItem.category.join(', ')}}</td>
+			<td>{{itineraryItem.address}}</td>
+		</tr>
+	</tbody>
+</table>

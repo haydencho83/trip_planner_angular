@@ -1,0 +1,10 @@
+<div class="place-detail">
+	<h1>Place Detail</h1>
+	<div ng-show="placeDetail">
+		<p>{{placeDetail}}</p>
+		<button ng-click="addToItinerary(placeDetail)">Add</button>
+	</div>
+	<div ng-show="!placeDetail">
+		<p>You haven't chosen a place yet</p>
+	</div>
+</div>

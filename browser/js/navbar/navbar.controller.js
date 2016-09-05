@@ -1,8 +1,13 @@
 'use strict';
 
-tp.controller('NavbarCtrl', function($scope, MapFactory){
+tp.controller('NavbarCtrl', function($scope, $rootScope){
+
+  var myLatLng = {lat: 40.71, lng: -74.00};
+  $rootScope.map = new google.maps.Map(document.getElementById('map-canvas'), {zoom: 15, center: myLatLng});
+
 
   var service = new google.maps.places.AutocompleteService();
+
   var typedAheadPredictions;
 
   $scope.queriedResults = function(query){
@@ -12,7 +17,9 @@ tp.controller('NavbarCtrl', function($scope, MapFactory){
   	return typedAheadPredictions;
   }
 
-  $scope.assignToAttraction = MapFactory.assignToAttraction;
+  $scope.assignPlaceIdToAttraction = function(query){
+  	$rootScope.$broadcast('query_place', query.place_id);
+  }
 
 })
 
