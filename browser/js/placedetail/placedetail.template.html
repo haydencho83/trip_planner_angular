@@ -1,10 +1,35 @@
 <div class="place-detail">
+
 	<h1>Place Detail</h1>
+
 	<div ng-show="placeDetail">
-		<p>{{placeDetail}}</p>
+		<h3><a href={{placeDetail.website}}>{{placeDetail.name}}</a></h3>
+		<p>{{placeDetail.category}}</p>
+		<p>Currently open: {{placeDetail.open}}</p>
+		<p>Price: {{placeDetail.price}}</p>
+		<p>Ratings: {{placeDetail.rating}}</p>
+
+		<!-- place.photos -->
+		<div class="row">
+			<div class="col-xs-3" ng-repeat="photo in placeDetail.photos | limitTo:4">
+				<a href="#" class="thumbnail">
+					<img src="" alt="" style="height: 100px">
+				</a>	
+			</div>
+			
+		</div>
+		
+
 		<button ng-click="addToItinerary(placeDetail)">Add</button>
+		<button ng-click="showDetails()">More details</button>
+		<div ng-show="isShowingDetails">
+			<p>{{placeDetail.number}}</p>
+			<p>{{placeDetail.address}}</p>
+		</div>
 	</div>
+
 	<div ng-show="!placeDetail">
 		<p>You haven't chosen a place yet</p>
 	</div>
+
 </div>

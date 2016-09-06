@@ -14,6 +14,9 @@
     <script src="/angular-messages/angular-messages.js" defer></script>
     
     <script src="/js/module.js" defer></script>
+
+    <script src="/js/gmap/gmap.factory.js" defer></script>
+
     <script src="/js/navbar/navbar.directive.js" defer></script>
     <script src="/js/navbar/navbar.controller.js" defer></script>
     
@@ -28,17 +31,21 @@
 
   </head>
   <body ng-app="TripPlanner">
-    <div class="col-xs-6">
-      <div ng-controller="NavbarCtrl">
-        <nav-bar></nav-bar>
+
+    <div ng-controller="NavbarCtrl">
+      <nav-bar></nav-bar>
+    </div>
+
+    <div class="container main-content">  
+      <div class="col-xs-6">
+        <div class="map-container" id="map-canvas"></div>
       </div>
       
-      <div class="map-container" id="map-canvas"></div>
+      <div class="col-xs-6 tabs">
+        <place-detail></place-detail>
+        <itinerary-tab></itinerary-tab>
+      </div>
     </div>
-    
-    <div class="col-xs-6">
-      <place-detail></place-detail>
-      <itinerary-tab></itinerary-tab>
-    </div>
+
   </body>
 </html>

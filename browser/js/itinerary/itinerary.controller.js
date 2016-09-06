@@ -7,4 +7,13 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope){
 		$scope.itineraryList.push(placeDetail);
 	})
 	
+
+	$scope.saveToItineraryList = function(list){
+		//save to my Itinerary List
+	}
+
+	$scope.optimize = function(itineraryList){
+		//optimize the distance, calculating the shortest time and distance
+	}
+
 })

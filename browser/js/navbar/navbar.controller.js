@@ -1,6 +1,6 @@
 'use strict';
 
-tp.controller('NavbarCtrl', function($scope, $rootScope){
+tp.controller('NavbarCtrl', function($scope, $rootScope, Gmap){
 
   var myLatLng = {lat: 40.71, lng: -74.00};
   $rootScope.map = new google.maps.Map(document.getElementById('map-canvas'), {zoom: 15, center: myLatLng});

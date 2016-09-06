@@ -1,22 +1,35 @@
 'use strict';
 
-tp.controller('DetailCtrl', function($scope, $rootScope){
+tp.controller('DetailCtrl', function($scope, $rootScope, Gmap){
 
 	var service = new google.maps.places.PlacesService($rootScope.map);
 
-	
-	$rootScope.$on('query_place', function(e, id){
-		$scope.place_id = id;
+	$scope.$on('query_place', function(e, id){
+
 		service.getDetails({placeId: id}, function(detail, status){
-			$scope.placeDetail = {
-				place_id: id,
-				name: detail.name,
-				category: detail.types,
-				address: detail.formatted_address,
-				phone_number: detail.formatted_phone_number,
-				opening_hours: detail.opening_hours.weekday_text,
-				geometry: {lat: detail.geometry.location.lat(), lng: detail.geometry.location.lng()}
-			}
+
+			var placeDetail = {};
+			//visible part
+			placeDetail.name = detail.name || null;
+			placeDetail.category = detail.types.join(', ').replace(/_/g, ' ') || null;
+			placeDetail.open = detail.opening_hours.open_now ? 'OPEN' : 'CLOSED' || null;
+			placeDetail.price = detail.price_level || null;
+			placeDetail.rating = detail.rating || null;
+			placeDetail.photos = detail.photos || null;
+			placeDetail.website = detail.website || null;
+			
+			//contact
+			placeDetail.number = detail.formatted_phone_number || null;
+			placeDetail.address = detail.formatted_address || null;
+			
+			//invisible part
+			placeDetail.placeId = id;
+			placeDetail.geometry = {lat: detail.geometry.location.lat(), lng: detail.geometry.location.lng()} || null;
+			
+
+			$scope.placeDetail = placeDetail;
+
+
 
 			function addMarker(pos, img, obj){
 			  var marker = new google.maps.Marker({
@@ -37,6 +50,13 @@ tp.controller('DetailCtrl', function($scope, $rootScope){
   
   $scope.addToItinerary = function(placeDetail){
   	$rootScope.$broadcast('addToItinerary', placeDetail)	
+  }
+
+  $scope.isShowingDetails = false;
+
+  $scope.showDetails = function(){
+  	$scope.isShowingDetails = !$scope.isShowingDetails;
+  	return $scope.isShowingDetails;
   }
 
 })

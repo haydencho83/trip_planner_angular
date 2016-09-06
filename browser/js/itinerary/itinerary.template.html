@@ -1,17 +1,25 @@
-<h1>Itinerary</h1>
+<!-- <h1>Itinerary</h1>
 <table class="table">
 	<thead>
 		<tr>
+			<td>No</td>
 			<td>Name</td>
-			<td>Category</td>
-			<td>address</td>
+			<td>Distance</td>
+			<td>Duration</td>
+			<td>Detail</td>
 		</tr>
 	</thead>
 	<tbody ng-show="itineraryList.length">
 		<tr ng-repeat="itineraryItem in itineraryList">
+			<td>{{itineraryList.indexOf(itineraryItem) + 1}}</td>
 			<td>{{itineraryItem.name}}</td>
-			<td>{{itineraryItem.category.join(', ')}}</td>
-			<td>{{itineraryItem.address}}</td>
+			<td>{{itineraryItem.distance}}</td>
+			<td>{{itineraryItem.duration}}</td>
+			<td><button>Details</button></td>
 		</tr>
 	</tbody>
 </table>
+
+
+<button ng-click="saveToItineraryList(itineraryList)">Save</button>
+<button ng-click="optimize(itineraryList)">Optimizing Dist</button> -->
