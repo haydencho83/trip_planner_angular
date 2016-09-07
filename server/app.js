@@ -2,15 +2,77 @@
 var path = require('path');
 var express = require('express');
 var app = express();
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('./db/models/user');
+
+require('./config')(app);
+
+app.use(cookieParser());
+app.use(session({
+	secret: 'Hans application secret'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+passport.use(new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(email, password, done){
+  	console.log(email);
+    User.findOne({
+      where: {
+        email: email,
+        password: password
+      }
+    })
+      .then(function(user){
+        if(user === null){ done(null, false) }
+        else {
+          done(null, user);
+        }
+      })
+      .catch(done); 
+}))
+
+app.get('/', function(req, res, next){
+	if (!req.session.visitCount){ req.session.visitCount = 1}
+	else { req.session.visitCount += 1}
+	next();
+	// res.send({visit_count: req.session.visitCount});
+});
+
+
+app.post('/login', passport.authenticate('local'), function(req, res){
+	console.log('hello!')
+	console.log(req)
+	console.log(res)
+})
+
+
 module.exports = app;
 
-// Pass our express application pipeline into the configuration
-// function located at server/app/configure/index.js
-require('./config')(app);
 
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
+
+
+
+
+
+
+
 
 
 /*
