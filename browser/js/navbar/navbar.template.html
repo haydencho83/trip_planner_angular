@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default">
   <div class="container">
-    <form class="navbar-form" name="queryForm" ng-submit="assignPlaceIdToAttraction(querySearch)" novalidate>
+    <form class="navbar-form" name="queryForm" ng-submit="assignPlaceIdToPlaceDetail(querySearch)" novalidate>
         <div class="form-group">
           <input type="text" ng-model="querySearch" uib-typeahead="prediction as prediction.description for prediction in queriedResults($viewValue)" class="form-control" />
           <input type="submit" class="btn btn-primary" value="Search"/>

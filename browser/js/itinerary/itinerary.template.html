@@ -1,4 +1,13 @@
-<!-- <h1>Itinerary</h1>
+<h1>Itinerary</h1>
+<nav>
+	
+	<ul class="nav nav-pills">
+		<li role="presentation" class="active" ng-click="createADay()"><a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
+		<!-- <pre>{{itineraryList.length}}</pre> -->
+		<li role="presentation" ng-class="{active: $index == currentDay}" ng-repeat="$index in itineraryList" ng-click="setDate($index)"><a>Day - {{$index + 1}}</a></li>
+	</ul>
+
+</nav>
 <table class="table">
 	<thead>
 		<tr>
@@ -9,9 +18,8 @@
 			<td>Detail</td>
 		</tr>
 	</thead>
-	<tbody ng-show="itineraryList.length">
-		<tr ng-repeat="itineraryItem in itineraryList">
-			<td>{{itineraryList.indexOf(itineraryItem) + 1}}</td>
+	<tbody ng-show="itineraryItems.length">
+		<tr ng-repeat="itineraryItem in itineraryItems">
 			<td>{{itineraryItem.name}}</td>
 			<td>{{itineraryItem.distance}}</td>
 			<td>{{itineraryItem.duration}}</td>
@@ -22,4 +30,4 @@
 
 
 <button ng-click="saveToItineraryList(itineraryList)">Save</button>
-<button ng-click="optimize(itineraryList)">Optimizing Dist</button> -->
+<!-- <button ng-click="optimize(itineraryList)">Optimizing Dist</button> -->
