@@ -1,17 +1,21 @@
 var db = require('../db');
 
-var Place = require('./place');
-var Hotel = require('./hotel');
-var Restaurant = require('./restaurant');
-var Activity = require('./activity');
+var Attraction = require('./attraction');
 var Day = require('./day');
+var User = require('./user');
 
-Hotel.belongsTo(Place);
-Restaurant.belongsTo(Place);
-Activity.belongsTo(Place);
+/*
+user1 - Day1 		- Attraction1, Attraction2, Attraction 3
+			- Day2		- Attraction1, Attraction2, Attraction 3
+			- Day3		- Attraction1, Attraction2, Attraction 3
+*/
 
-Day.belongsTo(Hotel);
-Day.belongsToMany(Restaurant, { through: 'day_restaurants' });
-Day.belongsToMany(Activity, { through: 'day_activities' });
+// Day.belongsTo(Attraction, {through: 'day_attractions'});
+Day.belongsTo(User);
+Day.hasMany(Attraction);
+Attraction.belongsTo(Day);
+User.hasMany(Day);
+
+
 
 module.exports = db;

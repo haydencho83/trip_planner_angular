@@ -1,6 +1,6 @@
 'user strict';
 
-tp.controller('ItineraryCtrl', function($scope, $rootScope){
+tp.controller('ItineraryCtrl', function($scope, $rootScope, $http){
 
 	$scope.currentDay = null;
 
@@ -11,22 +11,38 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope){
 
 	$scope.itineraryList = [];
 
-	$rootScope.$on('addToItinerary', function(e, placeDetail){
-		if(!$scope.currentDay) $scope.createADay();
+	$scope.$on('addToItinerary', function(e, placeDetail){
+		if ($scope.currentDay === null) $scope.createADay();
 		$scope.itineraryList[$scope.currentDay].push(placeDetail);
+
+		//attraction: name, placeId, geometry
+		$http.post('/api/days/'+$scope.currentDay+'/attractions', {
+			name: placeDetail.name,
+			placeId: placeDetail.placeId,
+			geometry: placeDetail.geometry
+		})
+			.then(function(){
+				console.log('attraction has been added to my Itinerary list')
+			});
+
 	})
 	
 
 	$scope.saveToItineraryList = function(list){
-		//save to my Itinerary List
+
 	}
 
 	
 
 	$scope.createADay = function(){
 		var list = $scope.itineraryList;
-		var i = list.length;
 		list[list.length] = [];
+
+		$http.post('/api/days', {day: list.length})
+			.then(function(){
+				console.log(list.length, ' day is created');
+			})
+
 		$scope.setDate(list.length - 1);
 	}
 

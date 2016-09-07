@@ -4,20 +4,9 @@
 const router = require('express').Router();
 module.exports = router;
 
-
-
-
-router.use('/hotel', require('./hotel'));
-router.use('/restaurant', require('./restaurant'));
-router.use('/activity', require('./activity'));
-// router.use('/days', require('./days')); NOT YET
-
-//NEED TO CHANGE//
-// router.use('/artists', require('./artists'));
-// router.use('/albums', require('./albums'));
-// router.use('/playlists', require('./playlists'));
-// router.use('/songs', require('./songs'));
-
+router.use('/days', require('./days'));
+router.use('/attractions', require('./attractions'));
+router.use('/users', require('./users'));
 
 
 // Make sure this is after all of

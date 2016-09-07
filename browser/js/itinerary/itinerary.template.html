@@ -20,6 +20,7 @@
 	</thead>
 	<tbody ng-show="itineraryItems.length">
 		<tr ng-repeat="itineraryItem in itineraryItems">
+			<td>{{$index + 1}}</td>
 			<td>{{itineraryItem.name}}</td>
 			<td>{{itineraryItem.distance}}</td>
 			<td>{{itineraryItem.duration}}</td>
