@@ -11,23 +11,43 @@ var Attraction = require('../db/models/attraction');
 
 
 // /api/days/
+//all days and attractions
+router.get('/', function(req, res, next){
+	var retrievingFromDB = [];
+	Day.findAll()
+		.then(function(days){
+			days.forEach(function(day){
+				retrievingFromDB.push(day.getAttractions());
+			})
+			return Promise.all(retrievingFromDB)
+		})
+		.then(function(attractions){
+			res.status(200).send(attractions);
+		})
+})
+
+
 router.post('/', function(req, res, next){
 	Day.create(req.body)
-		.then(function(createdDay){
-			res.status(201).send(createdDay)
+		.then(function(){
+			return res.status(201).end();
 		})
 		.catch(next);
 })
 
 
 // /api/days/:dayId/attractions
-router.post('/:dayId/attractions', function(req, res, next){
-	console.log(req.body)
-	Day.findById(req.params.dayId)
+router.post('/:dayNum/attractions', function(req, res, next){
+	Day.findOne({where: {day: +req.params.dayNum}})
 		.then(function(day){
-			return day.createAttraction(req.body)
-		});
-})
+			console.log(day)
+			day.createAttraction(req.body);
+			return res.status(201).end();
+		})
+		.catch(next);
+});
+
+
 
 
 // // Create a new day with no attractions

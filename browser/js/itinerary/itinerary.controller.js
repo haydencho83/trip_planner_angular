@@ -1,22 +1,28 @@
 'user strict';
 
-tp.controller('ItineraryCtrl', function($scope, $rootScope, $http){
+tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It){
 
-	$scope.currentDay = null;
+
+
+
+
+
+	$scope.currentDay = 1 || null;
 
 	$scope.setDate = function(dIndex){
 		$scope.currentDay = dIndex;
-		$scope.showItinerary(dIndex);
+		$scope.showItinerary(dIndex - 1);
 	}
 
 	$scope.itineraryList = [];
 
 	$scope.$on('addToItinerary', function(e, placeDetail){
 		if ($scope.currentDay === null) $scope.createADay();
-		$scope.itineraryList[$scope.currentDay].push(placeDetail);
+
+		$scope.itineraryList[$scope.currentDay - 1 ].push(placeDetail);
 
 		//attraction: name, placeId, geometry
-		$http.post('/api/days/'+$scope.currentDay+'/attractions', {
+		$http.post('/api/days/' + $scope.currentDay + '/attractions', {
 			name: placeDetail.name,
 			placeId: placeDetail.placeId,
 			geometry: placeDetail.geometry
@@ -43,7 +49,7 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http){
 				console.log(list.length, ' day is created');
 			})
 
-		$scope.setDate(list.length - 1);
+		$scope.setDate(list.length);
 	}
 
 	$scope.showItinerary = function(dIndex){

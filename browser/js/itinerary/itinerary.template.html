@@ -4,7 +4,7 @@
 	<ul class="nav nav-pills">
 		<li role="presentation" class="active" ng-click="createADay()"><a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 		<!-- <pre>{{itineraryList.length}}</pre> -->
-		<li role="presentation" ng-class="{active: $index == currentDay}" ng-repeat="$index in itineraryList" ng-click="setDate($index)"><a>Day - {{$index + 1}}</a></li>
+		<li role="presentation" ng-class="{active: $index+1 == currentDay}" ng-repeat="$index in itineraryList" ng-click="setDate($index+1)"><a>Day - {{$index + 1}}</a></li>
 	</ul>
 
 </nav>
