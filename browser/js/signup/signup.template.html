@@ -1,0 +1,23 @@
+<div class="auth-container">
+  <div class="buffer local">
+    <form name="signupForm" ng-submit="signup(user)">
+      <div class="form-group">
+        <label>name</label>
+        <input type="text" class="form-control" ng-model="user.name" required />
+      </div>
+      <div class="form-group">
+        <label>photo</label>
+        <input type="text" class="form-control" ng-model="user.photo" />
+      </div>
+      <div class="form-group">
+        <label>email</label>
+        <input type="email" class="form-control" ng-model="user.email" />
+      </div>
+      <div class="form-group">
+        <label>password</label>
+        <input type="password" class="form-control" ng-model="user.password" required />
+      </div>
+      <button type="submit" class="btn btn-block btn-primary">Sign-Up</button>
+    </form>
+  </div>
+</div>

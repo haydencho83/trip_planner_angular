@@ -2,19 +2,16 @@
 
 tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It){
 
-
-
-
-
-
-	$scope.currentDay = 1 || null;
+	It.retrieveFromDB()
+		.then(function(retrievedData){
+			$scope.itineraryList = retrievedData || [];
+			$scope.setDate(1);
+		})
 
 	$scope.setDate = function(dIndex){
 		$scope.currentDay = dIndex;
 		$scope.showItinerary(dIndex - 1);
 	}
-
-	$scope.itineraryList = [];
 
 	$scope.$on('addToItinerary', function(e, placeDetail){
 		if ($scope.currentDay === null) $scope.createADay();
@@ -32,13 +29,6 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It){
 			});
 
 	})
-	
-
-	$scope.saveToItineraryList = function(list){
-
-	}
-
-	
 
 	$scope.createADay = function(){
 		var list = $scope.itineraryList;
@@ -60,5 +50,13 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It){
 	// $scope.optimize = function(itineraryList){
 	// 	//optimize the distance, calculating the shortest time and distance
 	// }
+
+	$scope.delete = function(item){
+		console.log(item.id)
+		$http.delete('/api/attractions', {id: item.id})
+			.then(function(deleted){
+				console.log(deleted)
+			})
+	}
 
 })

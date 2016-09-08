@@ -61,6 +61,7 @@ app.get('/', function(req, res, next){
 
 
 app.post('/login', passport.authenticate('local'), function(req, res){
+	req.session.userId = req.user.id;
 	res.redirect('/');
 })
 

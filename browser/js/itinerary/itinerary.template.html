@@ -15,7 +15,7 @@
 			<td>Name</td>
 			<td>Distance</td>
 			<td>Duration</td>
-			<td>Detail</td>
+			<td>Delete</td>
 		</tr>
 	</thead>
 	<tbody ng-show="itineraryItems.length">
@@ -24,11 +24,9 @@
 			<td>{{itineraryItem.name}}</td>
 			<td>{{itineraryItem.distance}}</td>
 			<td>{{itineraryItem.duration}}</td>
-			<td><button>Details</button></td>
+			<td><button ng-click="delete(itineraryItem)">Delete</button></td>
 		</tr>
 	</tbody>
 </table>
 
-
-<button ng-click="saveToItineraryList(itineraryList)">Save</button>
 <!-- <button ng-click="optimize(itineraryList)">Optimizing Dist</button> -->
