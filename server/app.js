@@ -3,10 +3,6 @@ var path = require('path');
 var express = require('express');
 var app = express();
 
-var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
@@ -22,6 +18,18 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id)
+  .then(function (user) {
+    done(null, user);
+  })
+  .catch(done);
+});
+
 
 passport.use(new LocalStrategy(
   {
@@ -29,7 +37,6 @@ passport.use(new LocalStrategy(
     passwordField: 'password'
   },
   function(email, password, done){
-  	console.log(email);
     User.findOne({
       where: {
         email: email,
@@ -54,9 +61,7 @@ app.get('/', function(req, res, next){
 
 
 app.post('/login', passport.authenticate('local'), function(req, res){
-	console.log('hello!')
-	console.log(req)
-	console.log(res)
+	res.redirect('/');
 })
 
 
@@ -66,10 +71,6 @@ module.exports = app;
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
-
-
-
-
 
 
 
