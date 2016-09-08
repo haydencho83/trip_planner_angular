@@ -6,13 +6,25 @@ var Day = require('../db/models/day');
 
 module.exports = router;
 
-// /api/user/:userId/
-router.delete('/', function(req, res, next){
-	console.log(req.body);
-	
-	Attraction.destroy({id: req.body.id})
-		.then(function(attraction){
-			res.status(204).send(attraction)
+router.param('attractionId', function(req, res, next, id){
+	Attraction.findById(id)
+		.then(attraction => {
+			if (!attraction) {const err = Error('Attraction not found');
+			err.status(404);
+			throw err;
+		}
+		req.attraction = attraction;
+		next();
+		return null;
 		})
+		.catch(next);
+});
+
+
+// /api/user/:userId/
+router.delete('/:attractionId', function(req, res, next){
+	req.attraction.destroy()
+		.then((deleted) => res.status(204).send(deleted))
+		.catch(next);
 });
 

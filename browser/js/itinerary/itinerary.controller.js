@@ -1,6 +1,6 @@
 'user strict';
 
-tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It){
+tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state){
 
 	It.retrieveFromDB()
 		.then(function(retrievedData){
@@ -52,10 +52,12 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It){
 	// }
 
 	$scope.delete = function(item){
-		console.log(item.id)
-		$http.delete('/api/attractions', {id: item.id})
-			.then(function(deleted){
-				console.log(deleted)
+		$http.delete('/api/attractions/' + item.id)
+			.then(function(){
+				console.log('successfully deleted');
+				//refresh the page
+				// $window.location.reload();
+				$state.go($state.current, {}, {reload: true});
 			})
 	}
 
