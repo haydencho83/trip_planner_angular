@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, Gmap){
 
@@ -13,10 +13,14 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, G
 		$scope.showItinerary(dIndex - 1);
 	}
 
+	$scope.$on('updatedDirections', function(e, updatedItineraryItems){
+		$scope.itineraryItems = updatedItineraryItems;
+		$scope.$evalAsync();
+	});
+
+
 	$scope.$on('addToItinerary', function(e, placeDetail){
-
 		if ($scope.currentDay === null) $scope.createADay();
-
 		$scope.itineraryList[$scope.currentDay - 1 ].push(placeDetail);
 
 		//attraction: name, placeId, geometry
@@ -27,47 +31,39 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, G
 		})
 			.then(function(){
 				console.log('attraction has been added to my Itinerary list');
-				$scope.showItinerary($scope.currentDay-1);
+				// Gmap.calculateRoute($scope.itineraryItems);
+				$scope.showItinerary($scope.currentDay - 1);
 			});
-
 	})
+
 
 	$scope.createADay = function(){
 		var list = $scope.itineraryList;
 		list[list.length] = [];
-
 		$http.post('/api/days', {day: list.length})
 			.then(function(){
 				console.log(list.length, ' day is created');
 			})
-
 		$scope.setDate(list.length);
 	}
 
 	$scope.showItinerary = function(dIndex){
-		$scope.itineraryItems = $scope.itineraryList[dIndex];
-		for (var i = 0; i < $scope.itineraryItems.length; i++){
-			$scope.itineraryItems[i].distance = '';
-			$scope.itineraryItems[i].duration = '';
-		}
-		$scope.itineraryItems = Gmap.calculateRoute($scope.itineraryItems);
-		console.log($scope.itineraryItems);
-		//NOW WE HAVE DISTANCE, DURATION
-		//NEED TO REFLECT IN THE TEMPLATE AGAIN
+		 Gmap.calculateRoute($scope.itineraryList[dIndex]);
+		 $scope.itineraryItems = $scope.itineraryList[$scope.currentDay - 1];
 	}
 
 	$scope.delete = function(item){
-		//ISSUE HERE(MIDDLE ITEM DELETION)
 		$http.delete('/api/attractions/' + item.id)
 			.then(function(){
 				console.log('successfully deleted');
-				$scope.itineraryItems = $scope.itineraryItems.filter(function(newItem){
-					return newItem.id !== item.id;
+				$scope.itineraryItems = $scope.itineraryItems.filter(function(newItems){
+					return newItems.id !== item.id;
 				});
 			})
 			.then(function(){
-				console.log('HIT this')
-				$scope.showItinerary($scope.currentDay - 1);
+				$scope.$evalAsync();
+				// $scope.showItinerary($scope.currentDay - 1);
+
 			})
 	}
 
@@ -80,3 +76,4 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, G
 
 
 })
+

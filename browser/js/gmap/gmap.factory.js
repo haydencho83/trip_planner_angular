@@ -28,6 +28,7 @@ tp.factory('Gmap', function($rootScope){
 	}
 
 	gmap.calculateRoute = function(itineraryItems){
+		if (itineraryItems.length < 2) return;
 		var waypts = [];
 		for (var i = 1; i < itineraryItems.length - 1; i++){
 			waypts.push({location: itineraryItems[i].geometry, stopover: true});
@@ -40,17 +41,18 @@ tp.factory('Gmap', function($rootScope){
 			optimizeWaypoints: false,
 			travelMode: 'DRIVING'
 		}, function(response, status){
-			///////////////////////////////////
+			
 			for (var i = 0; i < response.routes[0].legs.length; i++){
-				itineraryItems[i+1].distance += (response.routes[0].legs[i].distance.text);
-				itineraryItems[i+1].duration += (response.routes[0].legs[i].duration.text);
+				itineraryItems[i + 1].distance = (response.routes[0].legs[i].distance.text);
+				itineraryItems[i + 1].duration = (response.routes[0].legs[i].duration.text);
 			}
-			///////////////////////////////////
+			
 			gmap.directionsDisplay.setMap(map);
 			gmap.directionsDisplay.setDirections(response);
+			$rootScope.$broadcast('updatedDirections', itineraryItems);
 		});
 
-		return itineraryItems;
+		// return itineraryItems;
 	}
 
 	return gmap;
