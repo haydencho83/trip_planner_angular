@@ -1,7 +1,6 @@
 
-<h1>Itinerary</h1>
+<div class="col-md-12">
 <nav>
-	
 	<ul class="nav nav-pills">
 		<li role="presentation" class="active" ng-click="createADay()"><a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 		<!-- <pre>{{itineraryList.length}}</pre> -->
@@ -9,24 +8,34 @@
 	</ul>
 
 </nav>
-<table class="table">
+<table class="table" ng-show="itineraryItems.length">
 	<thead>
 		<tr>
 			<td>No</td>
 			<td>Name</td>
 			<td>Distance</td>
 			<td>Duration</td>
+			<td>Detail</td>
+			<td>Modify</td>
 			<td>Delete</td>
+			
 		</tr>
 	</thead>
-	<tbody ng-show="itineraryItems.length">
+	<tbody>
 		<tr ng-repeat="itineraryItem in itineraryItems">
 			<td>{{$index + 1}}</td>
 			<td>{{itineraryItem.name}}</td>
 			<td>{{itineraryItem.distance}}</td>
 			<td>{{itineraryItem.duration}}</td>
+			<td><button ng-click="getDetail(itineraryItem)">Detail</button></td>
+			<td><button ng-click="moveUp(itineraryItem)"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>  <button ng-click="moveDown(itineraryItem)"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button></td>
 			<td><button ng-click="delete(itineraryItem)">Delete</button></td>
+			
 		</tr>
 	</tbody>
 </table>
-<button ng-click="optimize(itineraryItems)">Calculate the optimized routes</button>
+<h5 ng-show="!itineraryItems.length">No Itinerary Items</h5>
+<button ng-click="deleteADay()">Delete Day - {{currentDay}}</button>
+<button ng-click="optimize(itineraryItems)">optimize route</button>
+<button ng-click="shareItinerary(itineraryItems)">Share my Itinerary</button>
+</div>

@@ -45,7 +45,22 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, G
 				console.log(list.length, ' day is created');
 			})
 		$scope.setDate(list.length);
-	}
+	};
+
+	$scope.deleteADay = function(){
+		$http.delete('/api/days/' + $scope.currentDay)
+			.then(function(){
+				$scope.itineraryList.splice($scope.currentDay - 1, 1);
+				console.log($scope.currentDay + ' day is deleted');
+				var newCurrentDay = $scope.currentDay -1;
+				$scope.setDate(newCurrentDay);
+			})
+			.then(function(){
+				//update the day number if the deleted day was in the middle of itinerary list
+			})
+			.catch(next);
+	};
+
 
 	$scope.showItinerary = function(dIndex){
 		 Gmap.calculateRoute($scope.itineraryList[dIndex]);
@@ -61,12 +76,15 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, G
 				});
 			})
 			.then(function(){
+				Gmap.calculateRoute($scope.itineraryItems);
 				$scope.$evalAsync();
 				// $scope.showItinerary($scope.currentDay - 1);
-
 			})
 	}
 
+	$scope.getDetail = function(itineraryItem){
+		$rootScope.$broadcast('query_place', itineraryItem.placeId);
+	}
 
 	$scope.optimize = function(itineraryItems){
 		//optimize the distance, calculating the shortest time and distance

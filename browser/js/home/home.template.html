@@ -1,14 +1,11 @@
 <div ng-controller="NavbarCtrl">
   <nav-bar></nav-bar>
 </div>
+<div class='map-container' id='map-canvas'></div>
 
-<div class="container main-content">  
-  <div class="col-md-6 col-sm-12">
-    <div class='map-container' id='map-canvas'></div>
-  </div>
-      
-  <div class="col-md-6 col-sm-12 tabs">
-    <place-detail></place-detail>
-    <itinerary-tab></itinerary-tab>
-  </div>
+<div class="main-content"> 
+    
+  <div class="col-md-7"><itinerary-tab></itinerary-tab></div>  
+  <div class="col-md-5"><place-detail></place-detail></div>
+
 </div>

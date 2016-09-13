@@ -28,7 +28,7 @@ tp.factory('Gmap', function($rootScope){
 	}
 
 	gmap.calculateRoute = function(itineraryItems){
-		if (itineraryItems.length < 2) return;
+		if (itineraryItems.length < 2 || !itineraryItems.length) return;
 		var waypts = [];
 		for (var i = 1; i < itineraryItems.length - 1; i++){
 			waypts.push({location: itineraryItems[i].geometry, stopover: true});
