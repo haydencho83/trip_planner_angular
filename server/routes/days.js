@@ -55,6 +55,19 @@ router.delete('/:dayNum', function(req, res, next){
 });
 
 
+router.put('/:dayNum', function(req, res, next){
+	Day.findOne({
+		where: {day: +req.params.dayNum}, 
+		include: [{model: User, where: {id: req.session.userId}}]
+	})
+		.then(function(day){
+			day.update({day: req.params.dayNum-1});
+			return res.status(204).end();
+		})
+		.catch(next);
+});
+
+
 // /api/days/:dayId/attractions
 router.post('/:dayNum/attractions', function(req, res, next){
 	Day.findOne({where: {day: +req.params.dayNum}, 

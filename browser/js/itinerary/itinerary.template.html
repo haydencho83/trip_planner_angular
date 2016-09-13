@@ -28,7 +28,7 @@
 			<td>{{itineraryItem.distance}}</td>
 			<td>{{itineraryItem.duration}}</td>
 			<td><button ng-click="getDetail(itineraryItem)">Detail</button></td>
-			<td><button ng-click="moveUp(itineraryItem)"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>  <button ng-click="moveDown(itineraryItem)"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button></td>
+			<td><button ng-click="moveUp(itineraryItem)" ng-hide="itineraryItems.length <= 1"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>  <button ng-click="moveDown(itineraryItem)" ng-hide="itineraryItems.length <= 1"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button></td>
 			<td><button ng-click="delete(itineraryItem)">Delete</button></td>
 			
 		</tr>

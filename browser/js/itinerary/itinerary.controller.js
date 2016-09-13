@@ -1,6 +1,6 @@
 'use strict';
 
-tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, Gmap){
+tp.controller('ItineraryCtrl', function($log, $scope, $rootScope, $http, It, $state, Gmap){
 
 	It.retrieveFromDB()
 		.then(function(retrievedData){
@@ -48,17 +48,27 @@ tp.controller('ItineraryCtrl', function($scope, $rootScope, $http, It, $state, G
 	};
 
 	$scope.deleteADay = function(){
+		var newCurrentDay;
 		$http.delete('/api/days/' + $scope.currentDay)
 			.then(function(){
 				$scope.itineraryList.splice($scope.currentDay - 1, 1);
 				console.log($scope.currentDay + ' day is deleted');
-				var newCurrentDay = $scope.currentDay -1;
+				newCurrentDay = $scope.currentDay -1;
 				$scope.setDate(newCurrentDay);
 			})
 			.then(function(){
 				//update the day number if the deleted day was in the middle of itinerary list
+				return $scope.itineraryList.forEach(function(day, i){
+					if (i > newCurrentDay){
+						console.log(i);
+						return $http.put('/api/days/' + i)
+					}
+				})
 			})
-			.catch(next);
+			.then(function(){
+				console.log('deleted')
+			})
+			.catch($log.error)
 	};
 
 
