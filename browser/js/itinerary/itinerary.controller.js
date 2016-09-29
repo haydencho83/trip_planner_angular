@@ -57,13 +57,13 @@ tp.controller('ItineraryCtrl', function($log, $scope, $rootScope, $http, It, $st
 				$scope.setDate(newCurrentDay);
 			})
 			.then(function(){
+				console.log('newCurrentDay: ', newCurrentDay);
 				//update the day number if the deleted day was in the middle of itinerary list
-				return $scope.itineraryList.forEach(function(day, i){
-					if (i > newCurrentDay){
-						console.log(i);
-						return $http.put('/api/days/' + i)
+				for (var i = 1; i <= $scope.itineraryList.length; i++){
+					if ( i > newCurrentDay){//3
+						return $http.put('/api/days/' + Number(i));//4
 					}
-				})
+				}
 			})
 			.then(function(){
 				console.log('deleted')

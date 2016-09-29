@@ -56,12 +56,17 @@ router.delete('/:dayNum', function(req, res, next){
 
 
 router.put('/:dayNum', function(req, res, next){
+	console.log(req.params.dayNum);//3
 	Day.findOne({
-		where: {day: +req.params.dayNum}, 
+		where: {day: +req.params.dayNum},
 		include: [{model: User, where: {id: req.session.userId}}]
 	})
 		.then(function(day){
-			day.update({day: req.params.dayNum-1});
+			return day.update({day: req.params.dayNum}, {where: {day: req.params.dayNum + 1}});
+			//4->3
+		})
+		.then(function(updatedDay){
+			console.log(updatedDay);
 			return res.status(204).end();
 		})
 		.catch(next);
